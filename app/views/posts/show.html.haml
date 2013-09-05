@@ -17,7 +17,7 @@
 %p{:style => "color: green;"}= flash[:success]
 %p{:style => "color: red;"}= flash[:error]
 - @comments.each do |comment|
-  .comment{class: "level#{comment.level}"}
+  .comment{ style: "margin-left: #{comment.level}em" }
     .links
       .left
         = link_to comment.user.login, uc_path(comment.user)
