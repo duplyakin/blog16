@@ -1,0 +1,7 @@
+%h1 Edit new user
+= form_for @user, :url => { action: "update" } do |f|
+  %p
+    Login:
+    = f.text_field :login
+  = select(:user, :role, [['admin'], ['moderator'], [nil]])
+  %p= f.submit "Update user"

@@ -1,0 +1,25 @@
+%h1 Users
+- if @users.empty?
+  %b No users
+- else
+  
+  %table.users_show
+    %tr
+      %th User id
+      %th email
+      %th Login
+      %th Role
+      %th{:style => "text-align:left;"} Created at
+      %th
+    - @users.each do |u|
+      %tr
+        %td= u.id
+        %td= u.email
+        %td
+          = link_to u.login, uc_path(u)
+        %td= u.role
+        %td= u.created_at
+        %td= link_to 'Edit', edit_uc_path(u)
+        %td= link_to "Delete", uc_path(u), method: :delete, data:{confirm: |
+        "Do you really want to delete user?"}                         |
+  

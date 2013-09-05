@@ -1,0 +1,133 @@
+
+
+<style type="text/css">
+th,td
+{
+border:1px solid black;
+} 
+
+
+}
+</style>
+
+
+<p class="notice"><%= notice %></p>
+<p>
+<b>Author:</b>
+<%= @post.user.login %>
+</p>
+<p>
+<b>Title:</b>
+<%= @post.title.prep.break_long_words %>
+</p>
+<p>
+<b>Content:</b>
+<%= @post.content.prep.break_long_words %>
+</p>
+
+<!-- Add Comment -->
+<h2>Comments</h2>
+<p style="color: green;"><%= flash[:success] %></p>
+<p style="color: red;"><%= flash[:error] %></p>
+
+<% @comments.each do |comment| %>
+
+
+<table class="comment" border = '0' cellpadding = '3' cellspacing = '0' >
+
+  <tr>
+    <td rowspan = '3' width = "<%=comment.level%>px" style="border-bottom:0; border-left:0; border-right:0; border-top:0;">
+      
+    </td>
+    
+    <td colspan='2' width = "280px" bgcolor="#F0F0F0"  style="border-bottom:0; border-left:1; border-right:1; border-top:1;">
+      <%= link_to comment.user.login, uc_path(comment.user) %> 
+      <%if comment.comment_id != nil%>
+        to <%= link_to comment.comment.user.login, uc_path(comment.comment.user)%>
+      <%else%>
+        to Post
+      <%end%>
+      
+      <%="||"%>
+      <%if comment.user == current_user || ( current_user.role == "admin" || current_user.role == "moderator" ) %>
+        <span data-comment_id="<%=comment.id%>" class="editComment">Edit</span>
+      
+         
+      <%= link_to 'Destroy', comment_path(comment),
+      :confirm => 'Are you sure?',
+      :method => :delete %>  </td>
+       <%end%>  
+    </td>
+  </tr>
+  
+  <tr >
+    
+    <td colspan = '2' height = "70px"valign = "top" bgcolor="#F0F0F0" style="border-bottom:0; border-left:1; border-right:1; border-top:0;"> 
+    <b><FONT color="red">Comment:</FONT></b>
+    <span id="comment_<%=comment.id%>"><%= comment.body %></span>
+    </td>
+    
+  </tr>
+  
+  <tr>
+    
+    <td colspan='2' bgcolor="#F0F0F0" style="border-bottom:1; border-left:1; border-right:1; border-top:0; " >
+    
+    <span data-comment_id="<%=comment.id%>" class="createComment">Reply </span> </td>
+  </tr>
+
+
+</table>
+
+
+<!-- "items/#{i.id}" -> item_path(i), i = [comment.post, comment] => post_comment_path([comment.post, comment]) == [comment.post, comment]  -->
+<% end %>
+
+
+
+
+<h2>Add a comment:</h2>
+
+  <%= form_for(@post.comments.build(post: @post)) do |f| %>
+    <%= f.hidden_field :post_id %>
+    <div class="field">
+      <%= f.label :body %><br />
+      <%= f.text_area :body, maxlength:50 %>
+    </div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  <% end %>
+<br />
+
+
+  <%= form_for(@post.comments.build(post: @post), html: {id: "comment_with_parent_form"}) do |f| %>
+    <%= f.hidden_field :comment_id %>
+    <%= f.hidden_field :post_id %>
+    <div class="field">
+      <%= f.label :body %><br />
+      <%= f.text_area :body, maxlength:50 %>
+    </div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  <% end %>
+<br />
+
+
+<%= form_for(@post.comments.build(post: @post), html: {id: "edit_comment_form"}) do |f| %>
+    <input type="hidden" name="_method" value="put"/>
+    <div class="field">
+      <%= f.label :body %><br />
+      <%= f.text_area :body, maxlength:50 %>
+    </div>
+    <div class="actions">
+      <%= f.submit "Save" %>
+    </div>
+  <% end %>
+<br />
+
+
+
+<%= link_to 'Edit Post', edit_post_path(@post) %> |
+<%= link_to 'Back to Posts', posts_path %> |

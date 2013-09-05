@@ -1,0 +1,11 @@
+class Comment < ActiveRecord::Base
+	
+  validates :user, :post, :body, presence: true
+  validates :body, length: {in: 1..50}
+  belongs_to :post
+  belongs_to :user
+  attr_accessible :body, :user, :post, :post_id, :comment, :comment_id
+  
+  has_many   :comments, :dependent => :destroy
+  belongs_to :comment
+end

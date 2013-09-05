@@ -1,0 +1,48 @@
+<h2>Show a comment:</h2>
+<p><%= @comment.body %></p>
+
+<h2>Comments</h2>
+<% @comment.comments.each do |comment| %>
+<p>
+<b>Commenter:</b>
+<%= comment.user.login %>
+</p>
+<p>
+<b>Comment:</b>
+<%= comment.body %>
+<br/>
+<%= link_to 'Comment', comment %>
+</p>
+
+<!-- "items/#{i.id}" -> item_path(i), i = [comment.post, comment] => post_comment_path([comment.post, comment]) == [comment.post, comment]  -->
+<p>
+<% if current_user.role == 'admin' %>
+  
+
+
+<%= link_to 'Update Comment',  edit_comment_path( comment) %>
+<% end %>
+</p>
+
+<p>
+<%= link_to 'Destroy Comment', comment_path(comment),
+:confirm => 'Are you sure?',
+:method => :delete %>
+</p>
+
+<% end %>
+<h2>Add a comment:</h2>
+  <%= form_for(@comment.comments.build(post: @comment.post)) do |f| %>
+    <%= f.hidden_field :post_id %>
+    <%= f.hidden_field :comment_id %>
+    <div class="field">
+      <%= f.label :body %><br />
+      <%= f.text_area :body %>
+    </div>
+    <div class="actions">
+      <%= f.submit %>
+    </div>
+  <% end %>
+<br />
+
+

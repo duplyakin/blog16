@@ -1,0 +1,58 @@
+%h2= @post.title
+%p=  @post.content
+
+%h3  Comments
+%p{:style => "color: green;"}= flash[:success]
+%p{:style => "color: red;"}= flash[:error]
+- @comments.each do |comment|
+  .comment{class: "level#{comment.level}"}
+    .links
+      .left
+        = link_to comment.user.login, uc_path(comment.user)
+        - if comment.comment_id 
+          to #{ link_to comment.comment.user.login, uc_path(comment.comment.user)}
+        - else 
+          to Post
+      .right
+        - if comment.user == current_user || ( current_user.role == "admin" || current_user.role == "moderator" )
+          %span.editComment{ "data-comment_id" => comment.id } Edit 
+          = link_to 'Destroy', comment_path(comment), :confirm => 'Are you sure?',:method => :delete
+          %span.createComment{ "data-comment_id" => comment.id } Reply
+      .push     
+    .body{ id: "comment_#{comment.id}"}= comment.body
+    
+%h2 Add a comment:
+= form_for(@post.comments.build(post: @post)) do |f|
+  = f.hidden_field :post_id
+  .field
+    = f.label :body
+    %br/
+    = f.text_area :body, maxlength:50
+  .actions
+    = f.submit
+%br/
+
+= form_for(@post.comments.build(post: @post), html: {id: "comment_with_parent_form"}) do |f|
+  = f.hidden_field :comment_id
+  = f.hidden_field :post_id
+  .field
+    = f.label :body
+    %br/
+    = f.text_area :body, maxlength:50
+  .actions
+    = f.submit
+%br/
+= form_for(@post.comments.build(post: @post), html: {id: "edit_comment_form"}) do |f|
+  %input{ "name"=> "_method", "type" => "hidden", "value" => "put" }
+  .field
+    = f.label :body
+    %br/
+    = f.text_area :body, maxlength:50
+  .actions
+    = f.submit "Save"
+%br/
+= link_to 'Edit Post', edit_post_path(@post)
+|
+\#{link_to 'Back to Posts', posts_path} |
+
+

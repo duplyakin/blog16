@@ -1,0 +1,28 @@
+<h1>UsersActions</h1>
+<% if @user_actions.empty? %>
+  <b>No UsersActions</b>
+<% else %>
+	<tr>
+	<table border = '1'>
+	 
+	<th>User email</th>
+	<th>Action</th>
+	<th>Created at</th>
+	<th>Delete</th>
+	</tr>
+	<% @user_actions.each do |u| %>
+	<tr>  
+	  <td>
+	    <%= link_to u.user.email, uc_path(u.user)  %>
+	  </td>
+	  <td>
+	    <%= u.description %>
+	  </td>
+	  <td><%= u.created_at %></td>
+	  <td><%= link_to "Delete", user_action_path(u), method: :delete, data:{confirm: 
+	  "Do you really want to delete user action?"} %></td>
+	</tr>
+<%end%>
+<%end%>
+
+

@@ -1,0 +1,15 @@
+<h1>Create new user</h1>
+<%= form_for @user, :url => { action: "create" } do |f|%>
+  <p>Login:</br><%= f.text_field :login%></p>
+  
+  <select name="Role" :role>
+  <option value="1">"admin"</option>
+  <option value="2">"moderator"</option>
+  </select>
+
+  <p><%= f.submit "Create user"%></p>
+<%end%>
+
+
+
+

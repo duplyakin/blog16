@@ -1,0 +1,4 @@
+class AddLevelColumnToComments < ActiveRecord::Migration
+  def change
+  end
+end

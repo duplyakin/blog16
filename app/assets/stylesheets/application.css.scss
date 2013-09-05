@@ -1,0 +1,57 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ *= require_tree .
+ */
+ /*Comment*/
+ #comment_with_parent_form, #edit_comment_form { display: none; }
+ 
+ span.createComment ,  span.editComment {color: blue; border-bottom: dashed 1px blue; cursor: pointer;  }
+ .comment { width: 30%;  margin: 0.5em; background-color: #DCDCDC; padding: 0.5em; border-width: 2px; border-style: solid; color:000000 } 
+ .links { clear: both; margin-bottom: 0.5em }
+ .links .left { float:left; }
+ .links .right { float:right; }
+ .body { margin-top: 0.5em }
+ .push { clear: both; }
+ .level1   { margin-left: 2em; }
+ .level2   { margin-left: 4em; }
+ .level3   { margin-left: 6em; }
+ .level4   { margin-left: 8em; }
+ .level5   { margin-left: 10em; }
+ .level6   { margin-left: 12em; }
+ .level7   { margin-left: 14em; }
+ .level8   { margin-left: 16em; }
+ .level9   { margin-left: 18em; }
+ .level10   { margin-left: 20em; }
+ .level11   { margin-left: 22em; }
+ 
+ 
+ /*Post*/
+ .post {
+   width: 95%;  margin: 0.5em; background-color: #F0FFFF; padding: 0.5em; border-width: 2px; border-style: solid; color:000000;
+   .title {
+     .postInfo { 
+       margin-top: 0.5em;  float: left;
+       h2 {margin: 0 0 0 0;}
+      }
+     .links { clear: none; float: right; }
+
+   }  
+   .content { margin-top: 0.5em;  } 
+ }
+ 
+ /*User*/
+.users { width: 40%;  margin: 0.5em;  padding: 0.5em; }
+ 
+ 
+ 
+ 
+

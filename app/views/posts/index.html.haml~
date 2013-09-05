@@ -1,0 +1,20 @@
+%h1 Listing posts
+%table
+  %tr
+    %th Author
+    %th Title
+    %th Content
+    %th
+    %th
+    %th
+  - @posts.each do |post|
+    %tr
+      %td= link_to post.user.login, uc_path(post.user)
+      %td= post.title.prep.break_long_words
+      %td= post.content.prep.break_long_words
+      %td= link_to 'Show', post
+      - if current_user && ( post.user == current_user || ( current_user.role == "admin" || current_user.role == "moderator" ) )
+        %td= link_to 'Edit', edit_post_path(post)
+        %td= link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' }
+%br/
+= link_to 'New Post', new_post_path
