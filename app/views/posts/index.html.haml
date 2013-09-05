@@ -7,8 +7,9 @@
         %h2= post.title.prep.break_long_words
         = link_to post.user.login, uc_path(post.user)
       .links
-        - if current_user && ( post.user == current_user || ( current_user.role == "admin" || current_user.role == "moderator" ) )
+        -if current_user 
           =link_to 'Show', post_path(post)
+        - if current_user && ( post.user == current_user || ( current_user.role == "admin" || current_user.role == "moderator" ) )
           = link_to 'Edit', edit_post_path(post)
           = link_to 'Destroy', post, method: :delete, data: { confirm: 'Are you sure?' }
       .push  

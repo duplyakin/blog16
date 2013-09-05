@@ -19,11 +19,10 @@ jQuery(function($) {
     var container = $(this).parent();
     $(this).hide();
     
-    container.replaceWith($("#comment_with_parent_form"));
-    $("#comment_with_parent_form").show();
+    
     var comment_id = $(this).data("comment_id");
     $("#comment_with_parent_form input#comment_comment_id").val(comment_id);
-    
+    $("#comment_"+comment_id).after($("#comment_with_parent_form").show());
   });
   
    $(".editComment").click(function(){

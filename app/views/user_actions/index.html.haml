@@ -1,0 +1,20 @@
+%h1 UsersActions
+- if @user_actions.empty?
+  %b No UsersActions
+- else
+  %table{:border => "1"}
+    %tr 
+      %th User email
+      %th Action
+      %th Created at
+      %th Delete
+    - @user_actions.each do |u|
+      %tr
+        %td
+          = link_to u.user.email, uc_path(u.user)
+        %td
+          = u.description
+        %td= u.created_at
+        %td= link_to "Delete", user_action_path(u), method: :delete, data:{confirm: |
+            "Do you really want to delete user action?"}                           |
+

@@ -16,5 +16,5 @@
     - if current_user && current_user.role == "admin"
       %p
         = link_to "Users", ucs_path
-        | #{link_to "User actions", user_actions_path} | #{link_to "Posts", posts_path}
+        | #{link_to "User actions", user_actions_path} | #{link_to "Posts", posts_path}   
     = yield

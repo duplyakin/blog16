@@ -1,5 +1,5 @@
 class PostsController < ApplicationController
-  before_filter :authenticate_user!,                                            except: [:index, :show]
+  before_filter :authenticate_user!,                                            except: [:index]
   before_filter :find_post,                                                     only:   [:destroy, :update, :edit, :show]
   before_filter :allow_only_admins_moderators_and_authors_to_posts,             only:   [:update, :edit, :destroy]
   after_filter  :log_user_action_for_posts,                                     only:   [:create, :update, :destroy]
